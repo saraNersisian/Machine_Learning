@@ -1,9 +1,9 @@
 #-------------------------------------------------------------------------
 # AUTHOR: Sara Nersisian
 # FILENAME: svm.py
-# SPECIFICATION: description of the program
+# SPECIFICATION: Comparing the accuracy of SVM models with different parameters of C, degree, kernel, and decision_function_shape
 # FOR: CS 4210- Assignment #3
-# TIME SPENT: start 10:30
+# TIME SPENT: 30 min
 #-----------------------------------------------------------*/
 
 #IMPORTANT NOTE: DO NOT USE ANY ADVANCED PYTHON LIBRARY TO COMPLETE THIS CODE SUCH AS numpy OR pandas. You have to work here only with standard vectors and arrays
@@ -36,14 +36,15 @@ with open('optdigits.tes', 'r') as testingFile:
 
 #created 4 nested for loops that will iterate through the values of c, degree, kernel, and decision_function_shape
 #--> add your Python code here
-
+maxAccuracy = 0
 for C in c: #iterates over c
     for D in degree: #iterates over degree
         for K in kernel: #iterates kernel
            for FSH in decision_function_shape: #iterates over decision_function_shape
 
                 #Create an SVM classifier that will test all combinations of c, degree, kernel, and decision_function_shape as hyperparameters. For instance svm.SVC(c=1)
-                clf = svm.SVC(C, D, K, FSH)
+                 clf = svm.SVC(C=C, degree=D, kernel=K, decision_function_shape=FSH)
+
 
 
                 #Fit SVM to the training data
@@ -51,7 +52,7 @@ for C in c: #iterates over c
 
                 #make the classifier prediction for each test sample and start computing its accuracy
                 correctGuess = 0
-                maxAccuracy = 0
+                
                 for i, testSample in enumerate(dbTest):
                     class_predicted = int(clf.predict([testSample[:-1]]))
 
@@ -67,7 +68,7 @@ for C in c: #iterates over c
                 print("Highest SVM accuracy do far: ",maxAccuracy, ", Parameters: c=", C, " degree=", D, " kernel=",K ," decision_function_shape=",  FSH )
 
 
-
+print("\n\n**** FINALL **** Highest SVM accuracy : ", maxAccuracy, ", Parameters: c=", C, " degree=", D, " kernel=",K ," decision_function_shape=",  FSH )
 
 
 
