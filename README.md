@@ -7,3 +7,4 @@ There are different algorithms implementations written in Python such as:
 - Naive Bayes
 - Random Forest
 - SVM
+- Perceptron
