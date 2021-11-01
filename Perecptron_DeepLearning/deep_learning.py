@@ -1,9 +1,10 @@
 #-------------------------------------------------------------------------
 # AUTHOR: Sara Nersisian
 # FILENAME: deep_learning.py
-# SPECIFICATION: description of the program
+# SPECIFICATION: This is a deep learning program that uses deep neural networks to categorizes fashion items based on their image.
+# The data set used is Fashion-MNIST which consists of 60k 28X28 grayscale images with 10 classes.
 # FOR: CS 4210- Assignment #4
-# TIME SPENT: start 6:10-8:30
+# TIME SPENT: 2hr
 #-----------------------------------------------------------*/
 
 #IMPORTANT NOTE: YOU CAN USE ANY PYTHON LIBRARY TO COMPLETE YOUR CODE.
@@ -73,40 +74,38 @@ for h in n_hidden:                          #looking or the best parameters w.r.
 
             #Calculate the accuracy of this neural network and store its value if it is the highest so far. To make a prediction, do:
             class_predicted = np.argmax(model.predict(X_test), axis=-1)
-            print(class_predicted)
-#
-#             #-->add your Pyhton code here
-#             counter = 0  # reseting counter
-#             for y_testSample in y_test:
-#                 if y_testSample == class_predicted:  # if the prediction is correct add to the counter
-#                     counter += 1
-#             accuracy = counter / len(X_test)  # calculating the accuracy
-#
-#             if accuracy > highestAccuracy:
-#                 highestAccuracy = accuracy
-#             #print(class_predicted)
-#             print("Highest accuracy so far: " + str(highestAccuracy))
-#             print("Parameters: " + "Number of Hidden Layers: " + str(h) + ",number of neurons: " + str(n) + ",learning rate: " + str(l))
-#             print()
-#
-# #After generating all neural networks, print the final weights and biases of the best model
-# weights, biases = model.layers[1].get_weights()
-# print(weights)
-# print(biases)
-#
-# #The model’s summary() method displays all the model’s layers, including each layer’s name (which is automatically generated unless you set it when creating the layer), its
-# #output shape (None means the batch size can be anything), and its number of parameters. Note that Dense layers often have a lot of parameters. This gives the model quite a lot of
-# #flexibility to fit the training data, but it also means that the model runs the risk of overfitting, especially when you do not have a lot of training data.
-#
-# print(model.summary())
-# img_file = './model_arch.png'
-# tf.keras.utils.plot_model(model, to_file=img_file, show_shapes=True, show_layer_names=True)
-#
-# #plotting the learning curves of the best model
-# pd.DataFrame(history.history).plot(figsize=(8, 5))
-# plt.grid(True)
-# plt.gca().set_ylim(0, 1) # set the vertical range to [0-1]
-# plt.show()
-#
-#
-#
+            truePrediction = 0
+            for i in range(len(class_predicted)):
+                if class_predicted[i] == y_test[i]:
+                    truePrediction += 1
+            accuracy = truePrediction / len(X_test)
+
+
+            if accuracy > highestAccuracy:
+                highestAccuracy = accuracy
+            #print(class_predicted)
+            print("Highest accuracy so far: " + str(highestAccuracy))
+            print("Parameters: " + "Number of Hidden Layers: " + str(h) + ",number of neurons: " + str(n) + ",learning rate: " + str(l))
+            print()
+
+#After generating all neural networks, print the final weights and biases of the best model
+weights, biases = model.layers[1].get_weights()
+print(weights)
+print(biases)
+
+#The model’s summary() method displays all the model’s layers, including each layer’s name (which is automatically generated unless you set it when creating the layer), its
+#output shape (None means the batch size can be anything), and its number of parameters. Note that Dense layers often have a lot of parameters. This gives the model quite a lot of
+#flexibility to fit the training data, but it also means that the model runs the risk of overfitting, especially when you do not have a lot of training data.
+
+print(model.summary())
+img_file = './model_arch.png'
+tf.keras.utils.plot_model(model, to_file=img_file, show_shapes=True, show_layer_names=True)
+
+#plotting the learning curves of the best model
+pd.DataFrame(history.history).plot(figsize=(8, 5))
+plt.grid(True)
+plt.gca().set_ylim(0, 1) # set the vertical range to [0-1]
+plt.show()
+
+
+
